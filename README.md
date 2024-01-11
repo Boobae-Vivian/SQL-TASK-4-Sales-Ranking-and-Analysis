@@ -54,12 +54,12 @@ The outcome of this SQL query reveals that Raymond Buch holds the highest total 
 ### 2.  Utilize window functions for efficient analysis and ranking: 
 
 ---
-  -  a. Implement the row_number() window function to rank each product based on their sales:
+  -  A.   Implement the row_number() window function to rank each product based on their sales:
   ---
   To utilize the row_number() window function for ranking each product based on their sales, we employ the SELECT function, the ROW_NUMBER function, the ORDER BY clause, and the AS keyword for aliasing. The SQL syntax is as follows:
 
 ```sql
-SELECT `Product Name`, Sales, ROW_NUMBER() OVER (ORDER BY Sales DESC) AS `Numbers`
+SELECT `Product Name`, Sales, ROW_NUMBER() OVER (ORDER BY Sales DESC) AS Numbers
 FROM Stores;
 ```
 Explanation:
@@ -72,8 +72,55 @@ The outcome of this SQL query is a list of products with their respective sales 
 ---
 
 
-   - b. Employ the rank() window function to assign unique numbers to each product based on their sales:
+   - B.   Employ the rank() window function to assign unique numbers to each product based on their sales:
 ---
-     
-       
+To apply the rank() window function for ranking each product based on their sales, we utilize the SELECT function, the RANK function, the ORDER BY clause, and the AS keyword for aliasing. The SQL syntax is presented below:
+
+```sql
+SELECT `Product Name`, Sales, RANK() OVER (ORDER BY Sales DESC) AS `Rank`
+FROM Stores;
+```
+Explanation:
+
+- SELECT Clause: Specifies the columns to be included in the output - Product Name, Sales, and the result of the rank() window function.
+- RANK() OVER Clause: The RANK() function is a window function that assigns a unique rank to each row based on the specified ordering. In this case, it orders the rows by the Sales column in descending order (ORDER BY Sales DESC).
+- AS Clause: The AS keyword is used to alias the result of the RANK() function as Rank. This alias can be referenced in the output.
+
+The outcome of this SQL query is a list of products with their respective sales and the unique rank assigned by the rank() function. It's important to note that if multiple rows have the same sales values, they will share the same rank, and the next rank will be skipped. For instance, if five rows have the same rank of 4023, the sixth row will have a rank of 4028, bypassing ranks 4024, 4025, 4026, and 4027.
+
+---
+   - C.   Utilize the dense_rank() window function to rank each product based on their sales:
+---
+
+To employ the DENSE_RANK() window function for ranking each product based on their sales, we utilize the SELECT function, the DENSE_RANK function, the ORDER BY clause, and the AS keyword for aliasing. The SQL syntax is presented below:
+
+```SQL
+SELECT `Product Name`, Sales, DENSE_RANK() OVER (ORDER BY Sales DESC) AS `Dense_Rank` 
+FROM Stores;
+```
+Explanation:
+- SELECT Clause: Specifies the columns to be included in the output - Product Name, Sales, and the result of the DENSE_RANK() window function.
+- DENSE_RANK() OVER Clause: The DENSE_RANK() function is a window function that assigns a unique rank to each row based on the specified ordering. In this case, it orders the rows by the Sales column in descending order (ORDER BY Sales DESC).
+- AS Clause: The AS keyword is used to alias the result of the DENSE_RANK() function as Dense_Rank. This alias can be referenced in the output.
+
+The outcome of this SQL query is a list of products with their respective sales and the unique rank assigned by the DENSE_RANK() function. It's noteworthy that if multiple rows have the same sales values, they will be assigned the same rank, and the next rank will not be skipped. For instance, if five rows have the same rank of 2852, the sixth row will be assigned the rank of 2853, in contrast to the behavior of the RANK() function.
+
+ROW_NUMBER        | RANK             | DENSE_RANK
+:-----------------:|:----------------:|:------------------:
+![](TASK6B.png)    |![](TASK6C.png)   |![](TASK6D.png) 
+
+## CONCLUSION
+
+In conclusion, these analyses contribute to a more nuanced understanding of the West region's market dynamics, highlighting both top-performing customers and the sales performance of individual products. The presented SQL queries showcase a proficiency in using window functions for insightful data manipulation and ranking, emphasizing the importance of such techniques in data analysis and decision support.
+
+
+
+
+
+
+
+
+
+
+
 
